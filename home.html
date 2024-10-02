@@ -25,7 +25,7 @@
         top: 0;
         z-index: 10;
         width: 100%;
-        height: 100%;
+        height: 50%;
         background: rgba(0, 0, 0, 0.4);
       }
 
@@ -156,53 +156,35 @@
       //멤버 카드 클릭시 실행 이벤트 - 멤버데이터 가져오고 페이지 오픈
       $(document).on("click", ".col", async function () {
         let memberName = $(this).find(".card-title").text();
-
         console.log(memberName);
 
         // 파이어베이스에서 데이터 가져오기
         // let docs = await getDocs(collection(db, "members"));
         const q = query(
           collection(db, "team"),
-          where("title", "==", memberName)
+          where("name", "==", memberName)
         );
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
           let row = doc.data();
 
           let image = row["image"];
-          let title = row["title"];
-          let content = row["content"];
+          let name = row["name"];
           let mbti = row["mbti"];
+          let hobby = row["hobby"];
+          let food = row["food"];
+          let blog = row["blog"];
 
           $("#memberImg").attr("src", image);
-          $("#memberName").text(title);
+          $("#memberName").text(name);
           $("#memberMBTI").text(mbti);
-          $("#memberHobby").text(content);
+          $("#memberHobby").text(hobby);
+          $("#memberFood").text(food);
+          $("#memberBlog").text(blog);
         });
 
         // 페이지 오픈 함수
         memberPageOpen();
-      });
-
-      $("#postingbtn").click(async function () {
-        let image = $("#image").val();
-        let title = $("#title").val();
-        let content = $("#content").val();
-        let mbti = $("#mbti").val();
-
-        let doc = {
-          image: image,
-          title: title,
-          content: content,
-          mbti: mbti,
-        };
-        await addDoc(collection(db, "team"), doc);
-        alert("저장완료!");
-        window.location.reload();
-      });
-
-      $("#savebtn").click(async function () {
-        $("#postingbox").toggle();
       });
 
       let docs = await getDocs(collection(db, "team"));
@@ -212,12 +194,9 @@
         console.log(row);
         let cardId = doc.id;
         let image = row['image'];
-        let title = row['title'];
-        let content = row['content'];
+        let title = row['name'];
         let mbti = row['mbti'];
         let id = doc.id;
-
-
 
         let temp_html = `
                   <div class="col" id="card-${cardId}">
@@ -225,17 +204,10 @@
                           <img src="${image}">
                           <div class="card-body">
                               <h5 class="card-title">${title}</h5>
-                              <p class="card-text">${content}</p>
                           </div>
                           <div class="card-footer">
                               <small class="text-body-secondary">${mbti}</small>
                               <button type="button" class="btn btn-danger delbtn" id="delbtn" name="${id}" data-card-id="card-${cardId}">삭제하기</button>
-                              <button type="button" class="btn btn-warning editbtn" 
-                              data-card-id="card-${cardId}" 
-                              data-image="${image}" 
-                              data-title="${title}" 
-                              data-content="${content}" 
-                              data-mbti="${mbti}">수정하기</button>
                           </div>
                       </div>
                   </div>`;
@@ -250,17 +222,6 @@
             window.location.reload();
         });
 
-      // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
-      $(document).on('click', '.editbtn', function () {
-          let cardId = $(this).data('card-id'); // 클릭된 버튼의 data-card-id 속성 가져오기
-          let image = $(this).data('image');
-          let title = $(this).data('title');
-          let content = $(this).data('content');
-          let mbti = $(this).data('mbti');
-          console.log(mbti)
-
-          $("#postingbox").toggle();
-      });
     </script>
     <script>
       //멤버카드 소개 페이지 관련 script
@@ -277,8 +238,12 @@
       function modifyMember() {
         let result = prompt("인증비밀번호를 입력하세요", "");
         if (result == "1234") {
-          location.href = "modify.html";
+          location.href = "7조.html";
         }
+      }
+
+      function addMember() {
+        location.href = "7조.html";
       }
 
       //멤버 삭제 함수
@@ -316,8 +281,7 @@
             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li><a href="#" class="nav-link px-2 text-danger">7전8기</a></li>
             <li><a href="#" class="nav-link px-2 ">홈</a></li>
-            <button type="button" class="btn btn-primary" id="savebtn">멤버
-              추가</button>
+            <button type="button" class="btn btn-primary" id="savebtn" onclick="addMember()">멤버 추가</button>
           </ul>
         </div>
       </div>
@@ -326,52 +290,7 @@
     <div class="mytitle">
       <h1>7전8기</h1>
       <h2>7전8기의 마음으로 공부하자! 7조를 소개하는 사이트입니다.</h2>
-    </div>
-
-    <div class="mypostingbox" id="postingbox" style="display:none">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="image"
-          placeholder="프로필 이미지"
-        />
-        <label for="floatingInput">프로필 이미지</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="title"
-          placeholder="이름"
-        />
-        <label for="floatingInput">이름</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="content"
-          placeholder="한줄 소개"
-        />
-        <label for="floatingInput">한줄 소개</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="mbti"
-          placeholder="mbti"
-        />
-        <label for="floatingInput">mbti</label>
-      </div>
-      <div class="mybtn">
-        <button id="postingbtn" type="button" class="btn btn-dark">
-          기록하기
-        </button>
-        <button type="button" class="btn btn-outline-dark">닫기</button>
-      </div>
-    </div>    
+    </div>   
 
     <div class="mycards">
       <div id="card" class="row row-cols-1 row-cols-md-4 g-4">
@@ -418,14 +337,15 @@
                 <td id="memberName">이름</td>
                 <td id="memberMBTI">INTP</td>
                 <td id="memberHobby">취미</td>
+                <td id="memberFood">음식</td>
               </tr>
               <tr>
                 <th scope="row"></th>
                 <td colspan="3"></td>
               </tr>
               <tr>
-                <th scope="row">Github 주소</th>
-                <td colspan="3" id="githubAddr">sparta@sparta.com</td>
+                <th scope="row">블로그 주소</th>
+                <td colspan="3" id="memberBlog">sparta@sparta.com</td>
               </tr>
               <tr>
                 <th scope="row" colspan="4">자기소개</th>
