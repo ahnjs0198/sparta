@@ -28,21 +28,31 @@
         width: 100%;
         height: 100%;
         background: rgba(61, 61, 61, 0.4);
+        justify-content: center;
+        align-items: center;
+      }
+      .memberPage > .outer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
       }
 
-      .memberPage > .inner {
+      .memberPage > .outer > .inner {
         box-shadow: 0px 0px 10px 0px rgb(125, 7, 235);
-        margin: 170px auto 0px auto;
         background: white;
         border-radius: 16px;
         width: 450px;
-        max-height: 1200px;
+        max-height: 1000px;
+        margin: auto;
       }
 
       .memberImg {
         border-radius: 16px 16px 0px 0px;
         width: 450px;
         min-height: 450px;
+        max-height: 650px;
       }
 
       .memberContent {
@@ -141,9 +151,8 @@
       }
 
       .mytitle > .wrapper {
-        bottom: -10%;
-        right: -10%;
-        transform: translate(-50%, -50%);
+        top: 720px;
+        right: 80px;
         position: absolute;
       }
 
@@ -266,15 +275,15 @@
     </script>
 
     <script>
-      let preY;
       window.onscroll = function () {
         scrollRotate();
       };
 
       function scrollRotate() {
-        let image = document.getElementById("reload");
-        console.log(window.pageYOffset / 5);
-        image.style.transform = "rotate(" + window.pageYOffset / 5 + "deg)";
+        if (window.pageYOffset < 1600) {
+          let image = document.getElementById("reload");
+          image.style.transform = "rotate(" + window.pageYOffset / 5 + "deg)";
+        }
       }
 
       //멤버 카드 페이지 열기
@@ -353,68 +362,66 @@
     </div>
 
     <div id="memberPage" class="memberPage">
-      <div class="inner">
-        <div class="topbox">
-          <div class="btnbox">
-            <button
-              type="button"
-              class="memberCloseBtn"
-              onclick="memberPageClose()"
-            >
-              X
-            </button>
-          </div>
-          <img
-            src="background.PNG"
-            class="memberImg"
-            id="memberImg"
-            onerror="this.src='background.PNG'"
-          />
-        </div>
-
-        <div id="memberContent" class="memberContent">
-          <div class="contentbtnbox">
-            <button type="button" onclick="modifyMember()">수정</button>
-            <button id="delbtn" type="button">삭제</button>
+      <div class="outer">
+        <div class="inner">
+          <div class="topbox">
+            <div class="btnbox">
+              <button
+                type="button"
+                class="memberCloseBtn"
+                onclick="memberPageClose()"
+              >
+                X
+              </button>
+            </div>
+            <img
+              src="background.PNG"
+              class="memberImg"
+              id="memberImg"
+              onerror="this.src='background.PNG'"
+            />
           </div>
 
-          <table class="table table-borderless">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">이름</th>
-                <th scope="col">mbti</th>
-                <th scope="col">취미</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">기본정보</th>
-                <td id="memberName">이름</td>
-                <td id="memberMBTI">INTP</td>
-                <td id="memberHobby">취미</td>
-              </tr>
-              <tr>
-                <th scope="row"></th>
-                <td colspan="3"></td>
-              </tr>
-              <tr>
-                <th scope="row">블로그 주소</th>
-                <td colspan="3" id="memberBlog">sparta@sparta.com</td>
-              </tr>
-              <tr>
-                <th scope="row" colspan="4">자기소개</th>
-              </tr>
-              <tr>
-                <td colspan="4" id="introduceMyself">
-                  자기소개 내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                  내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                  내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                  내용자기소개 내용
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div id="memberContent" class="memberContent">
+            <div class="contentbtnbox">
+              <button type="button" onclick="modifyMember()">수정</button>
+              <button id="delbtn" type="button">삭제</button>
+            </div>
+
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">이름</th>
+                  <th scope="col">mbti</th>
+                  <th scope="col">취미</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">기본정보</th>
+                  <td id="memberName">이름</td>
+                  <td id="memberMBTI">INTP</td>
+                  <td id="memberHobby">취미</td>
+                </tr>
+                <tr>
+                  <th scope="row">블로그 주소</th>
+                  <td colspan="3" id="memberBlog">sparta@sparta.com</td>
+                </tr>
+                <tr>
+                  <th scope="row" colspan="4">자기소개</th>
+                </tr>
+                <tr>
+                  <td colspan="4" id="introduceMyself">
+                    자기소개 내용자기소개 내용자기소개 내용자기소개 내용자기소개
+                    내용자기소개 내용자기소개 내용자기소개 내용자기소개
+                    내용자기소개 내용자기소개 내용자기소개 내용자기소개
+                    내용자기소개 내용
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
