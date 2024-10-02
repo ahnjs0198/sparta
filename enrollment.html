@@ -30,7 +30,7 @@
 
       .mypostingbox {
         width: 490px;
-        margin: 80px auto 0px auto;
+        margin: 80px auto 80px auto;
         padding: 20px;
         box-shadow: 0px 0px 10px 0px rgb(125, 7, 235);
         border-radius: 15px;
@@ -53,7 +53,7 @@
 
       #profile {
         width: 450px;
-        height: 450px;
+        min-height: 450px;
         margin-bottom: 10px;
       }
 
@@ -91,35 +91,51 @@
       // Firebase 구성 정보 설정
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
       const firebaseConfig = {
-        apiKey: "AIzaSyCMOXXOSNqZgnBbkt0bq33ATNqLAQgYkfE",
-        authDomain: "sparta-35587.firebaseapp.com",
-        projectId: "sparta-35587",
-        storageBucket: "sparta-35587.appspot.com",
-        messagingSenderId: "419607826630",
-        appId: "1:419607826630:web:1b968712a1ffd9b68607c7",
-        measurementId: "G-ZF5V5FP6TX",
+        apiKey: "AIzaSyBYxw3ecQiQXkldn41y9XaW3Wuua_bk8V8",
+        authDomain: "introducetim.firebaseapp.com",
+        projectId: "introducetim",
+        storageBucket: "introducetim.appspot.com",
+        messagingSenderId: "332412628842",
+        appId: "1:332412628842:web:f3a7ebbf18a5de55c07f13",
       };
       // Firebase 인스턴스 초기화
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
       const storage = getStorage(app, "gs://sparta-35587.appspot.com");
 
-      async function editMember(docId, data) {
-        selectedDocId = docId;
+      // 페이지 오픈시에 데이터 가져오기
+      if (selectedDocId) {
+        // 파이어베이스에서 데이터 가져오기
+        const docRef = doc(db, "team", selectedDocId);
+        const docSnap = await getDoc(docRef);
 
-        $("#image").val(data.image);
-        $("#name").val(data.name);
-        $("#mbti").val(data.mbti);
-        $("#hobby").val(data.hobby);
-        $("#blog").val(data.blog);
-        $("#introduceMyself").val(data.introduceMyself);
+        if (docSnap.exists()) {
+          let row = docSnap.data();
 
-        $("#postingbtn").text("수정하기");
+          let image = row["image"];
+          let name = row["name"];
+          let mbti = row["mbti"];
+          let hobby = row["hobby"];
+          let blog = row["blog"];
+
+          let introduceMyself = row["introduceMyself"];
+
+          $("#profile").attr("src", image);
+          $("#profile").attr("style", "display: block;");
+          $("#image").val(image);
+          $("#name").val(name);
+          $("#mbti").val(mbti);
+          $("#hobby").val(hobby);
+          $("#blog").val(blog);
+          $("#introduceMyself").val(introduceMyself);
+        } else {
+          console.log("No such document!");
+        }
       }
 
+      //등록하기 버튼 이벤트
       $("#postingbtn").click(async function () {
         let image = $("#image").val();
-        console.log(image);
         let name = $("#name").val();
         let mbti = $("#mbti").val();
         let hobby = $("#hobby").val();
@@ -155,39 +171,15 @@
         location.href = "home.html";
       });
 
-      if (selectedDocId) {
-        // 파이어베이스에서 데이터 가져오기
-        const docRef = doc(db, "team", selectedDocId);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          let row = docSnap.data();
-
-          let image = row["image"];
-          let name = row["name"];
-          let mbti = row["mbti"];
-          let hobby = row["hobby"];
-          let blog = row["blog"];
-
-          let introduceMyself = row["introduceMyself"];
-
-          $("#profile").attr("src", image);
-          $("#profile").attr("style", "display: block;");
-          $("#name").val(name);
-          $("#mbti").val(mbti);
-          $("#hobby").val(hobby);
-          $("#blog").val(blog);
-          $("#introduceMyself").val(introduceMyself);
-        } else {
-          console.log("No such document!");
-        }
-      }
-
+      // 사진 파일 업로드 버튼 클릭 이벤트
       $("#send").click(function () {
         var filecheck = $("#imagefile").val();
         if (!filecheck) {
           alert("파일을 선택해주세요");
           return false;
+        }
+        if ($("#postingbtn").prop("disabled") == false) {
+          $("#postingbtn").attr("disabled", true);
         }
 
         var file = document.querySelector("#imagefile").files[0];
@@ -197,6 +189,9 @@
           getDownloadURL(storageRef).then((url) => {
             $("#image").val(url);
             $("#profile").attr("src", url);
+            if ($("#postingbtn").prop("disabled") == true) {
+              $("#postingbtn").attr("disabled", false);
+            }
           });
         });
       });
