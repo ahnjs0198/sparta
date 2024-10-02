@@ -27,22 +27,22 @@
         z-index: 10;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(168, 168, 168, 0.4);
       }
 
       .memberPage > .inner {
-        margin: 50px auto 0px auto;
+        box-shadow: 0px 0px 10px 0px rgb(125, 7, 235);
+        margin: 170px auto 0px auto;
         background: white;
         border-radius: 16px;
         width: 450px;
-        min-height: 650px;
-        max-height: 1000px;
+        max-height: 1200px;
       }
 
       .memberImg {
         border-radius: 16px 16px 0px 0px;
         width: 450px;
-        height: 450px;
+        min-height: 450px;
       }
 
       .memberContent {
@@ -159,6 +159,10 @@
         height: 500px;
         border-radius: 60%;
       }
+      .card-body {
+        margin: auto;
+        height: 60px;
+      }
     </style>
     <script type="module">
       // Firebase SDK 라이브러리 가져오기
@@ -242,7 +246,7 @@
                               <h5 class="card-title">${title}</h5>
                           </div>
                           <div class="card-footer">
-                              <small class="text-body-secondary">${mbti}</small>
+                              <small class="text-body-secondary">mbti : ${mbti}</small>
                           </div>
                       </div>
                   </div>`;
@@ -361,9 +365,10 @@
             </button>
           </div>
           <img
-            src="https://i.namu.wiki/i/ssAoGp1eY-97_e-SnHnXOJuktEPq3XM3Fk_5fkkk7Tmaenv9fV-bU03Sj3u31OPhD6FT0h6AquIIXFWFc38xKvbkT5fmdYDrMCDATRj3zLJNA-8IPE10UqOWuz3udqtZ9t-hBwXnYxzimNCtzU8ryg.webp"
+            src="background.PNG"
             class="memberImg"
             id="memberImg"
+            onerror="this.src='background.PNG'"
           />
         </div>
 
