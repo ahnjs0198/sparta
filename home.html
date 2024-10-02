@@ -254,7 +254,10 @@
 
       //멤버 추가 함수
       function addMember() {
-        location.href = "enrollment.html";
+        let result = prompt("인증비밀번호를 입력하세요", "");
+        if (result == "1234") {
+          location.href = "enrollment.html";
+        }
       }
 
       //멤버 삭제 함수
