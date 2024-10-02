@@ -128,14 +128,17 @@
         let mbti = row["mbti"];
         let hobby = row["hobby"];
         let blog = row["blog"];
+        
         let introduceMyself = row["introduceMyself"];
 
-        $("#memberimage").attr("src", image);
-        $("#membername").text(name);
-        $("#membermbti").text(mbti);
-        $("#memberhobby").text(hobby);
-        $("#memberblog").text(blog);
-        $("#introduceMyself").text(introduceMyself);
+        $("#profile").attr("src", image);
+        $('#profile').attr("style","display: block;");
+        $('#image').val(image);
+        $('#name').val(name);
+        $("#mbti").val(mbti);
+        $("#hobby").val(hobby);
+        $("#blog").val(blog);
+        $("#introduceMyself").val(introduceMyself);
       } else {
         console.log("No such document!");
       }
@@ -147,11 +150,14 @@
       let param = new URLSearchParams(query);
       let selectedDocId = param.get("id");
 
-      console.log(id);
+      console.log(selectedDocId);
     </script>
   </head>
 
   <body>
+    <div>
+      <input type="image" src="" id="profile" style="height: 30%; width: 30%; display: none;">
+    </div>
     <div class="mypostingbox" id="postingbox">
       <div class="form-floating mb-3">
         <input
