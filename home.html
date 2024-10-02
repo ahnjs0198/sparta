@@ -124,6 +124,7 @@
         let title = row['title'];
         let content = row['content'];
         let mbti = row['mbti'];
+        let id = doc.id;
 
 
 
@@ -137,7 +138,7 @@
                           </div>
                           <div class="card-footer">
                               <small class="text-body-secondary">${mbti}</small>
-                              <button type="button" class="btn btn-danger delbtn" data-card-id="card-${cardId}">삭제하기</button>
+                              <button type="button" class="btn btn-danger delbtn" id="delbtn" name="${id}" data-card-id="card-${cardId}">삭제하기</button>
                               <button type="button" class="btn btn-warning editbtn" data-card-id="card-${cardId}">수정하기</button>
                           </div>
                       </div>
@@ -146,13 +147,10 @@
       });
 
       // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
-      $(document).on('click', '.delbtn', function () {
-          let cardId = $(this).data('card-id'); // 클릭된 버튼의 data-card-id 속성 가져오기
-          $('#' + cardId).remove(); // 해당 카드 삭제
-          let docId = cardId.substr(5,);
-
-          deleteDoc(doc(db, "team", docId)); //데이터베이스에서 삭제
-      });
+      $(document).on('click', '#delbtn', async (event) => {
+            await deleteDoc(doc(db, "team", event.target.name));
+            window.location.reload();
+        });
 
       // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
       $(document).on('click', '.editbtn', function () {
