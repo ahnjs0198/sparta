@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>7조 멤버소개 사이트</title>
+    <title>7조 멤버소개</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -35,24 +35,29 @@
     </style>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-        import { updateDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCz6q3WJUeNnYnk-ZyE2uCitma-860Z4T0",
-            authDomain: "sparta-3d405.firebaseapp.com",
-            projectId: "sparta-3d405",
-            storageBucket: "sparta-3d405.appspot.com",
-            messagingSenderId: "962415249260",
-            appId: "1:962415249260:web:4311c60aa95c2ba35b5549",
-            measurementId: "G-HCGQJEP6V5"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+      // Firebase SDK 라이브러리 가져오기
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import {
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import { getDocs, getDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      import { doc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+      // Firebase 구성 정보 설정
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDbkIGqpulu4Y_hGB-ZrGujNlu0vw_1LGU",
+        authDomain: "sparta-772d6.firebaseapp.com",
+        projectId: "sparta-772d6",
+        storageBucket: "sparta-772d6.appspot.com",
+        messagingSenderId: "391813216346",
+        appId: "1:391813216346:web:d88e6bf32d669b6b350063",
+        measurementId: "G-0S9Y4WJNG5",
+      };
+      // Firebase 인스턴스 초기화
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
         let selectedDocId = null;
 
@@ -90,45 +95,17 @@
             };
 
             if (selectedDocId) {
-                const docRef = doc(db, "members", selectedDocId);
+                const docRef = doc(db, "team", selectedDocId);
                 await updateDoc(docRef, docData);
                 alert('수정되었습니다.');
                 selectedDocId = null;
                 $('#postingbtn').text('등록하기');
             } else {
-                await addDoc(collection(db, "members"), docData);
+                await addDoc(collection(db, "team"), docData);
                 alert('등록되었습니다.');
             }
 
             window.location.reload();
-        });
-
-        let docs = await getDocs(collection(db, "members"));
-        docs.forEach((doc) => {
-            let row = doc.data();
-
-            let image = row['image'];
-            let name = row['name'];
-            let mbti = row['mbti'];
-            let hobby = row['hobby'];
-            let food = row['food'];
-            let blog = row['blog'];
-            let pw = row['pw'];
-
-            let temp_html = `           
-        <div class="col">
-            <div class="card h-100">
-                <img src="${image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${name}</h5>
-                    <p class="card-text">MBTI: ${mbti}, 취미: ${hobby}, 좋아하는 음식: ${food}, 블로그: ${blog}</p>
-                </div>
-                <div class="card-footer">
-                    <button type="button" class="btn btn-primary" onclick="editMember('${doc.id}', ${JSON.stringify(row)})">수정</button>
-                </div>
-            </div>
-        </div>`;
-            $('#card').append(temp_html);
         });
     </script>
 </head>
