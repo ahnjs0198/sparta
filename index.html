@@ -1,313 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7전8기</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>7전8기</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
-      * {
-        font-family: "Gowun Dodum", sans-serif;
-      }
-      footer {
-        height: 100px;
-        background-color: rgb(125, 7, 235);
-      }
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap");
 
-      
+    * {
+      font-family: "Gowun Dodum", sans-serif;
+    }
 
-      header {
-        background-color: rgb(125, 7, 235);
-      }
-      header > a {
-        margin-left: 120px;
-        font-size: 28px;
-        color: white;
-      }
+    footer {
+      height: 100px;
+      background-color: rgb(125, 7, 235);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      .img-concert{
-        height: 50px;
-      }
 
-      .memberPage {
-        display: none;
-        position: fixed;
-        left: 0;
-        top: 0;
-        z-index: 10;
-        width: 100%;
-        height: 100%;
-        background: rgba(61, 61, 61, 0.4);
-        justify-content: center;
-        align-items: center;
-        overflow:auto;
-      }
-      .memberPage > .outer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-      }
 
-      .memberPage > .outer > .inner {
-        box-shadow: 0px 0px 10px 0px rgb(125, 7, 235);
-        background: white;
-        border-radius: 16px;
-        width: 450px;
-        max-height: 1000px;
-        margin: auto;
-      }
+    header {
+      background-color: rgb(125, 7, 235);
+    }
 
-      .memberImg {
-        border-radius: 16px 16px 0px 0px;
-        width: 450px;
-        min-height: 450px;
-        max-height: 650px;
-      }
+    header>a {
+      margin-left: 120px;
+      font-size: 28px;
+      color: white;
+    }
 
-      .memberContent {
-        margin-bottom: 5px;
-        padding: 0px 10px 10px 10px;
-      }
+    .img-concert {
+      height: 50px;
+    }
 
-      .btnbox {
-        position: absolute;
-        right: 0px;
-        margin: 8px 8px 0px 0px;
-      }
+    .memberPage {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 10;
+      width: 100%;
+      height: 100%;
+      background: rgba(61, 61, 61, 0.4);
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+    }
 
-      .topbox {
-        background-color: transparent;
-        position: relative;
-      }
+    .memberPage>.outer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
 
-      .contentbtnbox {
-        float: right;
-        margin-bottom: 5px;
-        margin-right: 5px;
-      }
-      .contentbtnbox > button {
-        font-size: 14px;
-        border: 0px;
-        background-color: transparent;
-      }
+    .memberPage>.outer>.inner {
+      box-shadow: 0px 0px 10px 0px rgb(125, 7, 235);
+      background: white;
+      border-radius: 16px;
+      width: 450px;
+      max-height: 1000px;
+      margin: auto;
+    }
 
-      .memberCloseBtn {
-        color: white;
-        font-size: 14px;
-        border: 0px;
-        background-color: transparent;
-        height: 20px;
-      }
+    .memberImg {
+      border-radius: 16px 16px 0px 0px;
+      width: 450px;
+      min-height: 450px;
+      max-height: 650px;
+    }
 
-      .mytitle {
-        height: 700px;
-        color: white;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        padding-left: 100px;
-        padding-bottom: 100px;
-        background-image: url("https://ahnjs0198.github.io/sparta/9154478.jpg");
-        background-position: center;
-        background-size: cover;
-        margin-bottom: 100px;
-      }
+    .memberContent {
+      margin-bottom: 5px;
+      padding: 0px 10px 10px 10px;
+    }
 
-      .mytitle > h1 {
-        font-size: 100px;
-        margin-bottom: 50px;
-        position: relative;
-      }
+    .btnbox {
+      position: absolute;
+      right: 0px;
+      margin: 8px 8px 0px 0px;
+    }
 
-      .mycards {
-        width: 1200px;
-        margin: 30px auto 200px auto;
-      }
+    .topbox {
+      background-color: transparent;
+      position: relative;
+    }
 
-      .card {
-        border-radius: 15px;
-      }
+    .contentbtnbox {
+      float: right;
+      margin-bottom: 5px;
+      margin-right: 5px;
+    }
 
-      .mypostingbox {
-        width: 500px;
-        margin: 30px auto 0px auto;
-        padding: 20px;
-        box-shadow: 0px 0px 3px 0px blue;
-        border-radius: 5px;
-      }
+    .contentbtnbox>button {
+      font-size: 14px;
+      border: 0px;
+      background-color: transparent;
+    }
 
-      .savebtn {
-        background-color: transparent;
-        border: 0px;
-        margin-top: 100px;
-        margin-right: 60px;
-        width: 100px;
-        height: 40px;
-      }
+    .memberCloseBtn {
+      color: white;
+      font-size: 14px;
+      border: 0px;
+      background-color: transparent;
+      height: 20px;
+    }
 
-      .saveguestbtn {
-        background-color: transparent;
-        border: 0px;
-        margin-top: 100px;
-        margin-right: 60px;
-        width: 100px;
-        height: 40px;
-      }
+    .mytitle {
+      height: 700px;
+      color: white;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding-left: 100px;
+      padding-bottom: 100px;
+      background-image: url("https://ahnjs0198.github.io/sparta/9154478.jpg");
+      background-position: center;
+      background-size: cover;
+      margin-bottom: 100px;
+    }
 
-      header > a {
-        margin-left: 120px;
-        font-size: 28px;
-      }
+    .mytitle>h1 {
+      font-size: 100px;
+      margin-bottom: 50px;
+      position: relative;
+    }
 
-      .memberlabel {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        padding-left: 100px;
-      }
+    .mycards {
+      width: 1200px;
+      margin: 30px auto 200px auto;
+    }
 
-      .memberlabel > label {
-        font-size: 60px;
-        margin: 50px auto 30px auto;
-      }
+    .card {
+      border-radius: 15px;
+    }
 
-      .mytitle > .wrapper {
-        top: 580px;
-        right: 80px;
-        position: absolute;
-      }
+    .mypostingbox {
+      width: 500px;
+      margin: 30px auto 0px auto;
+      padding: 20px;
+      box-shadow: 0px 0px 3px 0px blue;
+      border-radius: 5px;
+    }
 
-      .circle {
-        border-radius: 60%;
-        background-color: white;
-        text-align: center;
-        vertical-align: middle;
-      }
+    .savebtn {
+      background-color: transparent;
+      border: 0px;
+      margin-top: 100px;
+      margin-right: 60px;
+      width: 100px;
+      height: 40px;
+    }
 
-      #reload {
-        width: 300px;
-        height: 300px;
-        border-radius: 60%;
-      }
-      .card_title {
-        background-color: rgba(219, 218, 218, 0.661);
-        border-radius: 0px 0px 15px 15px;
-        margin: auto;
-        height: 50px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      }
+    .saveguestbtn {
+      background-color: transparent;
+      border: 0px;
+      margin-top: 100px;
+      margin-right: 60px;
+      width: 100px;
+      height: 40px;
+    }
 
-      .card_name {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-      }
+    header>a {
+      margin-left: 120px;
+      font-size: 28px;
+    }
 
-      .commentsbox {
-        width: 1200px;
-        height: 800px;
-        border: 1px solid;
-        border-radius: 20px;
-        margin: 40px auto 30px auto;
-      }
+    .memberlabel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding-left: 100px;
+    }
 
-      img, svg {
-          vertical-align: middle;
-          border-radius: 15px;
-      }
-    </style>
-    <script type="module">
-      // Firebase SDK 라이브러리 가져오기
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-      import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-      import {
-        collection,
-        addDoc,
-      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-      import {
-        getDocs,
-        getDoc,
-      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-      import {
-        doc,
-        deleteDoc,
-        query,
-        where,
-      } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-      // Firebase 구성 정보 설정
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      const firebaseConfig = {
-        apiKey: "AIzaSyBYxw3ecQiQXkldn41y9XaW3Wuua_bk8V8",
-        authDomain: "introducetim.firebaseapp.com",
-        projectId: "introducetim",
-        storageBucket: "introducetim.appspot.com",
-        messagingSenderId: "332412628842",
-        appId: "1:332412628842:web:f3a7ebbf18a5de55c07f13",
-      };
-      // Firebase 인스턴스 초기화
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
+    .memberlabel>label {
+      font-size: 60px;
+      margin: 50px auto 30px auto;
+    }
 
-      //멤버 카드 클릭시 실행 이벤트 - 멤버데이터 가져오고 페이지 오픈
-      $(document).on("click", ".col", async function () {
-        let docId = $(this).attr("value");
+    .mytitle>.wrapper {
+      top: 580px;
+      right: 80px;
+      position: absolute;
+    }
 
-        // 파이어베이스에서 데이터 가져오기
-        const docRef = doc(db, "team", docId);
-        const docSnap = await getDoc(docRef);
+    .circle {
+      border-radius: 60%;
+      background-color: white;
+      text-align: center;
+      vertical-align: middle;
+    }
 
-        if (docSnap.exists()) {
-          let row = docSnap.data();
+    #reload {
+      width: 300px;
+      height: 300px;
+      border-radius: 60%;
+    }
 
-          let image = row["image"];
-          let name = row["name"];
-          let mbti = row["mbti"];
-          let hobby = row["hobby"];
-          let blog = row["blog"];
-          let introduceMyself = row["introduceMyself"];
+    .card_title {
+      background-color: rgba(219, 218, 218, 0.661);
+      border-radius: 0px 0px 15px 15px;
+      margin: auto;
+      height: 50px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
 
-          $("#memberImg").attr("src", image);
-          $("#memberName").text(name);
-          $("#memberMBTI").text(mbti);
-          $("#memberHobby").text(hobby);
-          $("#memberBlog").text(blog);
-          $("#introduceMyself").text(introduceMyself);
-        } else {
-          console.log("No such document!");
-        }
+    .card_name {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+    }
 
-        // 페이지 오픈 함수
-        memberPageOpen(docId);
-      });
+    .commentsbox {
+      width: 1200px;
+      height: 800px;
+      border: 1px solid;
+      border-radius: 20px;
+      margin: 40px auto 30px auto;
+    }
 
-      let docs = await getDocs(collection(db, "team"));
+    img,
+    svg {
+      vertical-align: middle;
+      border-radius: 15px;
+    }
+  </style>
+  <script type="module">
+    // Firebase SDK 라이브러리 가져오기
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import {
+      collection,
+      addDoc,
+    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import {
+      getDocs,
+      getDoc,
+    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    import {
+      doc,
+      deleteDoc,
+      query,
+      where,
+    } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+    // Firebase 구성 정보 설정
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBYxw3ecQiQXkldn41y9XaW3Wuua_bk8V8",
+      authDomain: "introducetim.firebaseapp.com",
+      projectId: "introducetim",
+      storageBucket: "introducetim.appspot.com",
+      messagingSenderId: "332412628842",
+      appId: "1:332412628842:web:f3a7ebbf18a5de55c07f13",
+    };
+    // Firebase 인스턴스 초기화
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-      docs.forEach((doc) => {
-        let row = doc.data();
-        let cardId = doc.id;
+    //멤버 카드 클릭시 실행 이벤트 - 멤버데이터 가져오고 페이지 오픈
+    $(document).on("click", ".col", async function () {
+      let docId = $(this).attr("value");
+
+      // 파이어베이스에서 데이터 가져오기
+      const docRef = doc(db, "team", docId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        let row = docSnap.data();
+
         let image = row["image"];
-        let title = row["name"];
+        let name = row["name"];
         let mbti = row["mbti"];
-        let id = doc.id;
+        let hobby = row["hobby"];
+        let blog = row["blog"];
+        let introduceMyself = row["introduceMyself"];
 
-        let temp_html = `
+        $("#memberImg").attr("src", image);
+        $("#memberName").text(name);
+        $("#memberMBTI").text(mbti);
+        $("#memberHobby").text(hobby);
+        $("#memberBlog").text(blog);
+        $("#introduceMyself").text(introduceMyself);
+      } else {
+        console.log("No such document!");
+      }
+
+      // 페이지 오픈 함수
+      memberPageOpen(docId);
+    });
+
+    let docs = await getDocs(collection(db, "team"));
+
+    docs.forEach((doc) => {
+      let row = doc.data();
+      let cardId = doc.id;
+      let image = row["image"];
+      let title = row["name"];
+      let mbti = row["mbti"];
+      let id = doc.id;
+
+      let temp_html = `
                   <div class="col" id="card-${cardId}" value="${cardId}">
                       <div class="card h-100">
                           <img src="${image}" onerror="this.src='background.PNG'">
@@ -316,223 +322,200 @@
                           </div>
                       </div>
                   </div>`;
-        $("#card").append(temp_html);
-      });
+      $("#card").append(temp_html);
+    });
 
-      //멤버 삭제 함수
-      // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
-      $(document).on("click", "#delbtn", async (event) => {
-        let result = prompt("인증비밀번호를 입력하세요", "");
-        if (result == "1234") {
-          let docId = $("#memberPage").attr("value");
-          await deleteDoc(doc(db, "team", docId));
-        }
-        location.href = "index.html";
-      });
-    </script>
-
-    <script>
-      window.onscroll = function () {
-        scrollRotate();
-      };
-
-      function scrollRotate() {
-        if (window.pageYOffset < 1600) {
-          let image = document.getElementById("reload");
-          image.style.transform = "rotate(" + window.pageYOffset / 5 + "deg)";
-        }
+    //멤버 삭제 함수
+    // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
+    $(document).on("click", "#delbtn", async (event) => {
+      let result = prompt("인증비밀번호를 입력하세요", "");
+      if (result == "1234") {
+        let docId = $("#memberPage").attr("value");
+        await deleteDoc(doc(db, "team", docId));
       }
+      location.href = "index.html";
+    });
+  </script>
 
-      //멤버 카드 페이지 열기
-      function memberPageOpen(docId) {
-        $("#memberPage").attr("value", docId);
-        $("#memberPage").fadeIn();
+  <script>
+    window.onscroll = function () {
+      scrollRotate();
+    };
+
+    function scrollRotate() {
+      if (window.pageYOffset < 1600) {
+        let image = document.getElementById("reload");
+        image.style.transform = "rotate(" + window.pageYOffset / 5 + "deg)";
       }
-      //멤버 카드 페이지 닫기
-      function memberPageClose() {
+    }
+
+    //멤버 카드 페이지 열기
+    function memberPageOpen(docId) {
+      $("#memberPage").attr("value", docId);
+      $("#memberPage").fadeIn();
+    }
+    //멤버 카드 페이지 닫기
+    function memberPageClose() {
+      $("#memberPage").fadeOut();
+    }
+
+    //멤버 수정 함수
+    function modifyMember(docId) {
+      let result = prompt("인증비밀번호를 입력하세요", "");
+      if (result == "1234") {
+        let docId = $("#memberPage").attr("value");
+        location.href = "enrollment.html?id=" + docId;
+      }
+    }
+
+    //멤버 추가 함수
+    function addMember() {
+      location.href = "enrollment.html";
+    }
+
+    //멤버 삭제 함수
+    function DeleteMember() {
+      let result = prompt("인증비밀번호를 입력하세요", "");
+      if (result == "1234") {
+        $("#delbtn").trigger("click");
+        window.location.reload();
+      }
+    }
+
+    // 외부영역 클릭 시 팝업 닫기
+    $(document).mouseup(function (e) {
+      var LayerPopup = $("#outer");
+      if (LayerPopup.has(e.target).length === 0) {
         $("#memberPage").fadeOut();
       }
+    });
 
-      //멤버 수정 함수
-      function modifyMember(docId) {
-        let result = prompt("인증비밀번호를 입력하세요", "");
-        if (result == "1234") {
-          let docId = $("#memberPage").attr("value");
-          location.href = "enrollment.html?id=" + docId;
-        }
-      }
+    function addGuest() {
+      $('#postingbox').toggle();
+    }
+  </script>
+</head>
 
-      //멤버 추가 함수
-      function addMember() {
-        location.href = "enrollment.html";
-      }
+<body>
+  <!-- Navbar -->
+  <header class="p-3 text-bg-dark">
+    <a href="index.html" class="nav-link px-2 text-light">7전8기</a>
+  </header>
 
-      //멤버 삭제 함수
-      function DeleteMember() {
-        let result = prompt("인증비밀번호를 입력하세요", "");
-        if (result == "1234") {
-          $("#delbtn").trigger("click");
-          window.location.reload();
-        }
-      }
+  <div class="mytitle">
+    <div class="wrapper">
+      <div class="circle">
+        <img id="reload" src="circle.PNG" alt="scroll" />
+      </div>
+    </div>
+    <h1>7전8기</h1>
+    <h3>7번을 넘어져도 8번 일어나 목표에 전념하는 7조 입니다.</h3>
+    <h3>
+      포기하지 않는 열정과 노력을 보여드리겠습니다.
+    </h3>
+    <h3>끝까지하면 할 수 있습니다.</h3>
+  </div>
 
-      // 외부영역 클릭 시 팝업 닫기
-      $(document).mouseup(function (e) {
-        var LayerPopup = $("#outer");
-        if (LayerPopup.has(e.target).length === 0) {
-          $("#memberPage").fadeOut();
-        }
-      });
+  <div class="memberlabel">
+    <label>멤버 소개</label>
+    <button type="button" class="savebtn" onclick="addMember()">
+      멤버 추가
+    </button>
+  </div>
+  <hr style="margin: 0px 50px 0px 50px" />
 
-      function addGuest() {
-        $('#postingbox').toggle();
-      }
-    </script>
-  </head>
+  <div class="mycards">
+    <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
+  </div>
 
-  <body>
-    <!-- Navbar -->
-    <header class="p-3 text-bg-dark">
-      <a href="index.html" class="nav-link px-2 text-light">7전8기</a>
-    </header>
+  <div class="memberlabel">
+    <label>방명록</label>
+    <button type="button" class="saveguestbtn" onclick="addGuest()">
+      방명록 등록
+    </button>
+  </div>
+  <hr style="margin: 0px 50px 0px 50px" />
+  <div class="mypostingbox" id="postingbox" style="display:none">
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="image" placeholder="이름" />
+      <label for="floatingInput">이름</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="title" placeholder="내용" />
+      <label for="floatingInput">내용</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="email" class="form-control" id="comment" placeholder="날짜" />
+      <label for="floatingInput">날짜</label>
+    </div>
+    <button id="postingbtn" type="button" class="btn btn-danger">
+      기록하기
+    </button>
+  </div>
 
-    <div class="mytitle">
-      <div class="wrapper">
-        <div class="circle">
-          <img id="reload" src="circle.PNG" alt="scroll" />
+
+  <div class="commentsbox"></div>
+
+  <div id="memberPage" class="memberPage">
+    <div class="outer">
+      <div class="inner">
+        <div class="topbox">
+          <div class="btnbox">
+            <button type="button" class="memberCloseBtn" onclick="memberPageClose()">
+              X
+            </button>
+          </div>
+          <img src="background.PNG" class="memberImg" id="memberImg" onerror="this.src='background.PNG'" />
         </div>
-      </div>
-      <h1>7전8기</h1>
-      <h3>7번을 넘어져도 8번 일어나 목표에 전념하는 7조 입니다.</h3>
-      <h3>
-       포기하지 않는 열정과 노력을 보여드리겠습니다.
-      </h3>
-      <h3>끝까지하면 할 수 있습니다.</h3>
-    </div>
 
-    <div class="memberlabel">
-      <label>멤버 소개</label>
-      <button type="button" class="savebtn" onclick="addMember()">
-        멤버 추가
-      </button>
-    </div>
-    <hr style="margin: 0px 50px 0px 50px" />
-
-    <div class="mycards">
-      <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
-    </div>
-
-    <div class="memberlabel">
-      <label>방명록</label>
-      <button type="button" class="saveguestbtn" onclick="addGuest()">
-        방명록 등록
-      </button>
-    </div>
-    <hr style="margin: 0px 50px 0px 50px" />
-    <div class="mypostingbox" id="postingbox" style="display:none">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="image"
-          placeholder="이름"
-        />
-        <label for="floatingInput">이름</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="title"
-          placeholder="내용"
-        />
-        <label for="floatingInput">내용</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="comment"
-          placeholder="날짜"
-        />
-        <label for="floatingInput">날짜</label>
-      </div>
-      <button id="postingbtn" type="button" class="btn btn-danger">
-        기록하기
-      </button>
-    </div>    
-
-    
-    <div class="commentsbox"></div>
-
-    <div id="memberPage" class="memberPage">
-      <div class="outer">
-        <div class="inner">
-          <div class="topbox">
-            <div class="btnbox">
-              <button
-                type="button"
-                class="memberCloseBtn"
-                onclick="memberPageClose()"
-              >
-                X
-              </button>
-            </div>
-            <img
-              src="background.PNG"
-              class="memberImg"
-              id="memberImg"
-              onerror="this.src='background.PNG'"
-            />
+        <div id="memberContent" class="memberContent">
+          <div class="contentbtnbox">
+            <button type="button" onclick="modifyMember()">수정</button>
+            <button id="delbtn" type="button">삭제</button>
           </div>
 
-          <div id="memberContent" class="memberContent">
-            <div class="contentbtnbox">
-              <button type="button" onclick="modifyMember()">수정</button>
-              <button id="delbtn" type="button">삭제</button>
-            </div>
-
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">이름</th>
-                  <th scope="col">mbti</th>
-                  <th scope="col">취미</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">기본정보</th>
-                  <td id="memberName">이름</td>
-                  <td id="memberMBTI">INTP</td>
-                  <td id="memberHobby">취미</td>
-                </tr>
-                <tr>
-                  <th scope="row">블로그 주소</th>
-                  <td colspan="3" id="memberBlog">sparta@sparta.com</td>
-                </tr>
-                <tr>
-                  <th scope="row" colspan="4">자기소개</th>
-                </tr>
-                <tr>
-                  <td colspan="4" id="introduceMyself">
-                    자기소개 내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                    내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                    내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                    내용자기소개 내용
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">이름</th>
+                <th scope="col">mbti</th>
+                <th scope="col">취미</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">기본정보</th>
+                <td id="memberName">이름</td>
+                <td id="memberMBTI">INTP</td>
+                <td id="memberHobby">취미</td>
+              </tr>
+              <tr>
+                <th scope="row">블로그 주소</th>
+                <td colspan="3" id="memberBlog">sparta@sparta.com</td>
+              </tr>
+              <tr>
+                <th scope="row" colspan="4">자기소개</th>
+              </tr>
+              <tr>
+                <td colspan="4" id="introduceMyself">
+                  자기소개 내용자기소개 내용자기소개 내용자기소개 내용자기소개
+                  내용자기소개 내용자기소개 내용자기소개 내용자기소개
+                  내용자기소개 내용자기소개 내용자기소개 내용자기소개
+                  내용자기소개 내용
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-  </body>
-  <footer>
-    <a href="https://velog.io/@skykid/posts">
-      <img class="img-concert" src="https://ahnjs0198.github.io/sparta/velog.png"/>
+  </div>
+</body>
+<footer>
+  <a href="https://velog.io/@skykid/posts">
+    <img class="img-concert" src="https://ahnjs0198.github.io/sparta/velog.png" />
   </a>
-  </footer>
+</footer>
+
 </html>
