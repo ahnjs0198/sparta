@@ -306,6 +306,21 @@
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
 
+      $("#postingbtn").click(async function () {
+        let commentname = $("#commentname").val();
+        let commentcontents = $("#commentcontents").val();
+        let commentpw = $("#commentpw").val();
+
+        let doc = {
+          commentname: commentname,
+          commentcontents: commentcontents,
+          commentpw: commentpw
+        };
+        await addDoc(collection(db, "comments"), doc);
+        alert("저장완료!");
+        window.location.reload();
+      });
+
       //멤버 카드 클릭시 실행 이벤트 - 멤버데이터 가져오고 페이지 오픈
       $(document).on("click", ".col", async function () {
         let docId = $(this).attr("value");
@@ -522,7 +537,7 @@
           </div>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-outline-dark">등록하기</button>
+          <button type="button" class="btn btn-outline-dark" id="postingbtn">등록하기</button>
         </div>
       </div>
 
