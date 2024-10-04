@@ -18,19 +18,22 @@
       * {
         font-family: "Gowun Dodum", sans-serif;
       }
+
       footer {
         height: 100px;
         background-color: rgb(125, 7, 235);
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      footer > a {
+      <<<<<<< HEAD .img-concert {
         height: 50px;
-        margin-right: 120px;
       }
-
-      header {
+      ======= header {
         background-color: rgb(125, 7, 235);
       }
+
       header > a {
         margin-left: 120px;
         font-size: 28px;
@@ -40,8 +43,7 @@
       .img-concert {
         height: 50px;
       }
-
-      .memberPage {
+      >>>>>>>e2afc37cad0502e00e79354e815c93eac02e0e09 .memberPage {
         display: none;
         position: fixed;
         left: 0;
@@ -99,6 +101,7 @@
         margin-bottom: 5px;
         margin-right: 5px;
       }
+
       .contentbtnbox > button {
         font-size: 14px;
         border: 0px;
@@ -141,11 +144,6 @@
 
       .card {
         border-radius: 15px;
-      }
-
-      .card > img {
-        height: 420px;
-        border-radius: 15px 15px 0px 0px;
       }
 
       .mypostingbox {
@@ -210,10 +208,11 @@
         height: 300px;
         border-radius: 60%;
       }
-      .card-title {
-        padding-top: 5px;
-        height: 30px;
-        background-color: transparent;
+      .card_title {
+        background-color: rgba(219, 218, 218, 0.661);
+        border-radius: 0px 0px 15px 15px;
+        margin: auto;
+        height: 50px;
         text-align: center;
         display: flex;
         align-items: center;
@@ -221,9 +220,8 @@
         flex-direction: column;
       }
 
-      .card-body {
-        background-color: rgba(201, 200, 200, 0.5);
-        border-radius: 0px 0px 15px 15px;
+      .card_name {
+        position: absolute;
         bottom: 0px;
         width: 100%;
       }
@@ -249,23 +247,6 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-      }
-
-      .commentsbox {
-        width: 100%;
-        height: fit-content;
-        margin: 80px auto 80px auto;
-      }
-
-      .commentsbox > .row {
-        width: 1200px;
-        margin: 40px auto 20px auto;
-        padding-left: 50px;
-      }
-
-      .memberbox {
-        width: 100%;
-        height: fit-content;
       }
 
       img,
@@ -349,7 +330,7 @@
         let id = doc.id;
 
         let temp_html = `
-                  <div class="col" value="${cardId}">
+                  <div class="col" id="card-${cardId}" value="${cardId}">
                       <div class="card h-100">
                         <img src="${image}" class="card-img-top" onerror="this.src='background.PNG'">
                         <div class="card-body">
@@ -425,15 +406,8 @@
         }
       });
 
-      //방명록 등록 toggle 함수
-      function addcommentboxtoggle() {
-        if ($("#addcommentbox").css("display") == "none") {
-          $("#addcommentbox").show();
-          $("#addcommentbtn").text("방명록 등록 취소");
-        } else {
-          $("#addcommentbox").hide();
-          $("#addcommentbtn").text("방명록 등록");
-        }
+      function addGuest() {
+        $("#postingbox").toggle();
       }
     </script>
   </head>
@@ -456,18 +430,16 @@
       <h3>끝까지하면 할 수 있습니다.</h3>
     </div>
 
-    <div class="memberbox">
-      <div class="memberlabel">
-        <label>멤버 소개</label>
-        <button type="button" class="savebtn" onclick="addMember()">
-          멤버 추가
-        </button>
-      </div>
-      <hr style="margin: 0px 50px 0px 50px" />
+    <div class="memberlabel">
+      <label>멤버 소개</label>
+      <button type="button" class="savebtn" onclick="addMember()">
+        멤버 추가
+      </button>
+    </div>
+    <hr style="margin: 0px 50px 0px 50px" />
 
-      <div class="mycards">
-        <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
-      </div>
+    <div class="mycards">
+      <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
     </div>
 
     <div class="commentsbox">
@@ -531,6 +503,41 @@
         <div class="commentslist"></div>
       </div>
     </div>
+    <hr style="margin: 0px 50px 0px 50px" />
+    <div class="mypostingbox" id="postingbox" style="display: none">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="image"
+          placeholder="이름"
+        />
+        <label for="floatingInput">이름</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="title"
+          placeholder="내용"
+        />
+        <label for="floatingInput">내용</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="comment"
+          placeholder="날짜"
+        />
+        <label for="floatingInput">날짜</label>
+      </div>
+      <button id="postingbtn" type="button" class="btn btn-danger">
+        기록하기
+      </button>
+    </div>
+
+    <div class="commentsbox"></div>
 
     <div id="memberPage" class="memberPage">
       <div class="outer">
