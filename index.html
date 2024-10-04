@@ -266,7 +266,7 @@
       .commentslistouter {
         z-index: 9;
         position: absolute;
-        width: 1200px;
+        width: 1220px;
         height: 800px;
         border: 1px solid;
         border-radius: 30px;
@@ -465,6 +465,8 @@
         if (result == pw) {
           let docId = event.target.parentElement.children[1].value;
           await deleteDoc(doc(db, "comments", docId));
+        } else {
+          alert("비밀번호가 틀렸습니다.");
         }
         location.reload();
       });
@@ -508,7 +510,7 @@
         } else if (commentPw == null) {
           await addDoc(collection(db, "comments"), docData);
         } else {
-          console.log("방명록 등록error");
+          alert("비밀번호가 틀렸습니다.");
         }
 
         commentId = null;
