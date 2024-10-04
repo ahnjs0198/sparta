@@ -116,6 +116,10 @@
         margin: 30px auto 200px auto;
       }
 
+      .card {
+        border-radius: 15px;
+      }
+
       .mypostingbox {
         width: 500px;
         margin: 30px auto 0px auto;
@@ -168,9 +172,30 @@
         height: 500px;
         border-radius: 60%;
       }
-      .card-body {
+      .card_title {
+        background-color: rgba(219, 218, 218, 0.661);
+        border-radius: 0px 0px 15px 15px;
         margin: auto;
-        height: 60px;
+        height: 50px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .card_name {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+      }
+
+      .commentsbox {
+        width: 1200px;
+        height: 800px;
+        border: 1px solid;
+        border-radius: 20px;
+        margin: 40px auto 30px auto;
       }
     </style>
     <script type="module">
@@ -251,11 +276,8 @@
                   <div class="col" id="card-${cardId}" value="${cardId}">
                       <div class="card h-100">
                           <img src="${image}" onerror="this.src='background.PNG'">
-                          <div class="card-body">
-                              <h5 class="card-title">${title}</h5>
-                          </div>
-                          <div class="card-footer">
-                              <small class="text-body-secondary">mbti : ${mbti}</small>
+                          <div class="card_name">
+                              <h5 class="card_title">${title}</h5>
                           </div>
                       </div>
                   </div>`;
@@ -360,6 +382,15 @@
     <div class="mycards">
       <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
     </div>
+
+    <div class="memberlabel">
+      <label>방명록</label>
+      <button type="button" class="savebtn" onclick="addMember()">
+        방명록 등록
+      </button>
+    </div>
+    <hr style="margin: 0px 50px 0px 50px" />
+    <div class="commentsbox"></div>
 
     <div id="memberPage" class="memberPage">
       <div class="outer">
