@@ -431,6 +431,7 @@
           let hobby = row["hobby"];
           let blog = row["blog"];
           let introduceMyself = row["introduceMyself"];
+          let m_pw = row["m_pw"];
 
           $("#memberImg").attr("src", image);
           $("#memberName").text(name);
@@ -543,6 +544,7 @@
 
       //멤버 수정 함수
       function modifyMember(docId) {
+        
         let result = prompt("인증비밀번호를 입력하세요", "");
         if (result == "1234") {
           let docId = $("#memberPage").attr("value");
