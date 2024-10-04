@@ -544,12 +544,14 @@
       }
 
       //멤버 수정 함수
-      function modifyMember(docId) {
+      function modifyMember() {
         let m_pw = $("#m_pw").val();
         let result = prompt("인증비밀번호를 입력하세요", "");
         if (result == m_pw) {
           let docId = $("#memberPage").attr("value");
           location.href = "enrollment.html?id=" + docId;
+        } else {
+          alert("비밀번호가 틀렸습니다.");
         }
       }
 
@@ -707,7 +709,7 @@
 
           <div id="memberContent" class="memberContent">
             <div class="contentbtnbox">
-              <input type="hidden" id="m_pw">
+              <input type="hidden" id="m_pw" />
               <button type="button" onclick="modifyMember()">수정</button>
               <button id="delbtn" type="button">삭제</button>
             </div>
