@@ -368,6 +368,10 @@
           $("#memberPage").fadeOut();
         }
       });
+
+      function addGuest() {
+        $('#postingbox').toggle();
+      }
     </script>
   </head>
 
@@ -405,11 +409,45 @@
 
     <div class="memberlabel">
       <label>방명록</label>
-      <button type="button" class="savebtn" onclick="addMember()">
+      <button type="button" class="saveguestbtn" onclick="addGuest()">
         방명록 등록
       </button>
     </div>
     <hr style="margin: 0px 50px 0px 50px" />
+    <div class="mypostingbox" id="postingbox" style="display:none">
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="image"
+          placeholder="이름"
+        />
+        <label for="floatingInput">이름</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="title"
+          placeholder="내용"
+        />
+        <label for="floatingInput">내용</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="comment"
+          placeholder="날짜"
+        />
+        <label for="floatingInput">날짜</label>
+      </div>
+      <button id="postingbtn" type="button" class="btn btn-danger">
+        기록하기
+      </button>
+    </div>    
+
+    
     <div class="commentsbox"></div>
 
     <div id="memberPage" class="memberPage">
@@ -477,44 +515,6 @@
       </div>
     </div>
 
-    <div class="memberlabel">
-      <label>방명록</label>
-      <button type="button" class="saveguestbtn" onclick="$('#postingbox').toggle();">
-        방명록 추가
-      </button>
-    </div>
-    <hr style="margin: 0px 50px 0px 50px" />
-    <div class="mypostingbox" id="postingbox">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="image"
-          placeholder="이름"
-        />
-        <label for="floatingInput">이름</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="title"
-          placeholder="내용"
-        />
-        <label for="floatingInput">내용</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="comment"
-          placeholder="날짜"
-        />
-        <label for="floatingInput">날짜</label>
-      </div>
-      <button id="postingbtn" type="button" class="btn btn-danger">
-        기록하기
-      </button>
-    </div>
+
   </body>
 </html>
