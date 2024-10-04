@@ -105,6 +105,32 @@
         background-color: transparent;
       }
 
+      .commentbox {
+        width: 1180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        padding: 20px;
+      }
+
+      .commentbox > p {
+        width: 980px;
+        margin: 10px;
+      }
+
+      .commentbtnbox {
+        float: right;
+        width: fit-content;
+        margin-left: 40px;
+      }
+
+      .commentbox .commentbtnbox > button {
+        font-size: 12px;
+        border: 0px;
+        background-color: transparent;
+      }
+
       .memberCloseBtn {
         color: white;
         font-size: 14px;
@@ -241,6 +267,8 @@
       }
 
       .commentslist {
+        -ms-overflow-style: none;
+        overflow-y: auto;
         z-index: 10;
         position: absolute;
         width: 1200px;
@@ -249,6 +277,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+      }
+
+      .commentslist::-webkit-scrollbar {
+        display: none;
       }
 
       .commentsbox {
@@ -281,6 +313,7 @@
       import {
         collection,
         addDoc,
+        updateDoc,
       } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       import {
         getDocs,
@@ -289,8 +322,6 @@
       import {
         doc,
         deleteDoc,
-        query,
-        where,
       } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
       // Firebase 구성 정보 설정
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -305,6 +336,60 @@
       // Firebase 인스턴스 초기화
       const app = initializeApp(firebaseConfig);
       const db = getFirestore(app);
+
+      // 멤버 전체 정보 가져오기
+      async function getMemberData() {
+        let docs = await getDocs(collection(db, "team"));
+
+        docs.forEach((doc) => {
+          let row = doc.data();
+          let cardId = doc.id;
+          let image = row["image"];
+          let title = row["name"];
+          let mbti = row["mbti"];
+
+          let temp_html = `
+            <div class="col" value="${cardId}">
+                <div class="card h-100">
+                  <img src="${image}" class="card-img-top" onerror="this.src='background.PNG'">
+                  <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                  </div>
+                </div>
+            </div>`;
+          $("#card").append(temp_html);
+        });
+      }
+      // 멤버 데이터 가져오기 실행
+      getMemberData();
+
+      // 방명록 전체 정보 가져오기
+      async function getCommentsData() {
+        let commentdocs = await getDocs(collection(db, "comments"));
+
+        commentdocs.forEach((doc) => {
+          let row = doc.data();
+          let commentId = doc.id;
+          let name = row["name"];
+          let comment = row["comment"];
+          let pw = row["pw"];
+          let temp_html = `
+  <div class="commentbox">
+      <p>
+        <span style="font-weight: bold" id="commentnamelabel">${name}</span> :<span id="comment">${comment}</span>
+      </p>
+      <div class="commentbtnbox">
+        <input type="hidden" id="commentpw" value="${pw}" />
+        <input type="hidden" id="commentId" value="${commentId}" />
+        <button type="button" id="commentmodifybtn">수정</button>
+        <button id="commentdelbtn" type="button">삭제</button>
+      </div>
+    </div>`;
+          $("#commentslist").append(temp_html);
+        });
+      }
+      // 방명록 데이터 가져오기 실행
+      getCommentsData();
 
       //멤버 카드 클릭시 실행 이벤트 - 멤버데이터 가져오고 페이지 오픈
       $(document).on("click", ".col", async function () {
@@ -338,37 +423,74 @@
         memberPageOpen(docId);
       });
 
-      let docs = await getDocs(collection(db, "team"));
-
-      docs.forEach((doc) => {
-        let row = doc.data();
-        let cardId = doc.id;
-        let image = row["image"];
-        let title = row["name"];
-        let mbti = row["mbti"];
-        let id = doc.id;
-
-        let temp_html = `
-                  <div class="col" value="${cardId}">
-                      <div class="card h-100">
-                        <img src="${image}" class="card-img-top" onerror="this.src='background.PNG'">
-                        <div class="card-body">
-                          <h5 class="card-title">${title}</h5>
-                        </div>
-                      </div>
-                  </div>`;
-        $("#card").append(temp_html);
-      });
-
       //멤버 삭제 함수
       // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
-      $(document).on("click", "#delbtn", async (event) => {
+      $(document).on("click", "#delbtn", async () => {
         let result = prompt("인증비밀번호를 입력하세요", "");
         if (result == "1234") {
           let docId = $("#memberPage").attr("value");
           await deleteDoc(doc(db, "team", docId));
         }
         location.href = "index.html";
+      });
+
+      //방명록 삭제 함수
+      // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
+      $(document).on("click", "#commentdelbtn", async (event) => {
+        let result = prompt("방명록 개인 비밀번호를 입력하세요", "");
+        let pw = event.target.parentElement.firstElementChild.value;
+        if (result == pw) {
+          let docId = event.target.parentElement.children[1].value;
+          await deleteDoc(doc(db, "comments", docId));
+        }
+        location.reload();
+      });
+
+      //방명록 수정하기 버튼 이벤트
+      let commentId = null;
+      let commentPw = null;
+      $(document).on("click", "#commentmodifybtn", async (event) => {
+        $("#addcommentbox").show();
+        $("#addcommentopen").text("방명록 등록 취소");
+
+        commentId = event.target.parentElement.children[1].value;
+        commentPw = event.target.parentElement.firstElementChild.value;
+
+        let name =
+          event.target.parentElement.parentElement.firstElementChild.children[0]
+            .textContent;
+        let comment =
+          event.target.parentElement.parentElement.firstElementChild.children[1]
+            .textContent;
+        $("#commentname").val(name);
+        $("#commentcontents").val(comment);
+        // $("#commentpw").val(pw);
+      });
+
+      //방명록 등록하기 버튼 이벤트
+      $(document).on("click", "#addcommentbtn", async () => {
+        let name = $("#commentname").val();
+        let comment = $("#commentcontents").val();
+        let pw = $("#commentpw").val();
+
+        let docData = {
+          name: name,
+          comment: comment,
+          pw: pw,
+        };
+
+        if (commentPw == pw) {
+          const docRef = doc(db, "comments", commentId);
+          await updateDoc(docRef, docData);
+        } else if (commentPw == null) {
+          await addDoc(collection(db, "comments"), docData);
+        } else {
+          console.log("방명록 등록error");
+        }
+
+        commentId = null;
+        commentPw = null;
+        location.reload();
       });
     </script>
 
@@ -429,10 +551,10 @@
       function addcommentboxtoggle() {
         if ($("#addcommentbox").css("display") == "none") {
           $("#addcommentbox").show();
-          $("#addcommentbtn").text("방명록 등록 취소");
+          $("#addcommentopen").text("방명록 등록 취소");
         } else {
           $("#addcommentbox").hide();
-          $("#addcommentbtn").text("방명록 등록");
+          $("#addcommentopen").text("방명록 등록");
         }
       }
     </script>
@@ -476,7 +598,7 @@
         <button
           type="button"
           class="savebtn"
-          id="addcommentbtn"
+          id="addcommentopen"
           onclick="addcommentboxtoggle()"
         >
           방명록 등록
@@ -522,13 +644,15 @@
           </div>
         </div>
         <div class="col-sm-2">
-          <button type="button" class="btn btn-outline-dark">등록하기</button>
+          <button type="button" class="btn btn-outline-dark" id="addcommentbtn">
+            등록하기
+          </button>
         </div>
       </div>
 
       <div style="position: relative; width: 100%; height: 900px">
         <div class="commentslistouter"></div>
-        <div class="commentslist"></div>
+        <div class="commentslist" id="commentslist"></div>
       </div>
     </div>
 
@@ -583,12 +707,7 @@
                   <th scope="row" colspan="4">자기소개</th>
                 </tr>
                 <tr>
-                  <td colspan="4" id="introduceMyself">
-                    자기소개 내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                    내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                    내용자기소개 내용자기소개 내용자기소개 내용자기소개
-                    내용자기소개 내용
-                  </td>
+                  <td colspan="4" id="introduceMyself">자기소개 내용</td>
                 </tr>
               </tbody>
             </table>
