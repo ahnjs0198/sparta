@@ -452,7 +452,8 @@
       // 동적으로 생성된 버튼에 이벤트를 적용하기 위해 이벤트 델리게이션 사용
       $(document).on("click", "#delbtn", async () => {
         let result = prompt("인증비밀번호를 입력하세요", "");
-        if (result == "1234") {
+        let m_pw = $("#m_pw").val();
+        if (result == m_pw) {
           let docId = $("#memberPage").attr("value");
           await deleteDoc(doc(db, "team", docId));
         }
