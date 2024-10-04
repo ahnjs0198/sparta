@@ -440,7 +440,6 @@
           $("#memberBlog").text(blog);
           $("#introduceMyself").text(introduceMyself);
           $("#m_pw").val(m_pw);
-          console.log(m_pw);
         } else {
           console.log("No such document!");
         }
@@ -546,9 +545,9 @@
 
       //멤버 수정 함수
       function modifyMember(docId) {
-        
+        let m_pw = $("#m_pw").val();
         let result = prompt("인증비밀번호를 입력하세요", "");
-        if (result == "1234") {
+        if (result == m_pw) {
           let docId = $("#memberPage").attr("value");
           location.href = "enrollment.html?id=" + docId;
         }
