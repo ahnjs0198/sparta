@@ -30,7 +30,7 @@
         background: rgba(61, 61, 61, 0.4);
         justify-content: center;
         align-items: center;
-        overflow:auto;
+        overflow: auto;
       }
       .memberPage > .outer {
         display: flex;
@@ -121,6 +121,11 @@
         border-radius: 15px;
       }
 
+      .card > img {
+        height: 420px;
+        border-radius: 15px 15px 0px 0px;
+      }
+
       .mypostingbox {
         width: 500px;
         margin: 30px auto 0px auto;
@@ -183,11 +188,10 @@
         height: 300px;
         border-radius: 60%;
       }
-      .card_title {
-        background-color: rgba(219, 218, 218, 0.661);
-        border-radius: 0px 0px 15px 15px;
-        margin: auto;
-        height: 50px;
+      .card-title {
+        padding-top: 5px;
+        height: 30px;
+        background-color: transparent;
         text-align: center;
         display: flex;
         align-items: center;
@@ -195,18 +199,36 @@
         flex-direction: column;
       }
 
-      .card_name {
-        position: absolute;
+      .card-body {
+        background-color: rgba(201, 200, 200, 0.5);
+        border-radius: 0px 0px 15px 15px;
         bottom: 0px;
         width: 100%;
       }
 
-      .commentsbox {
+      .commentslist {
         width: 1200px;
         height: 800px;
         border: 1px solid;
         border-radius: 20px;
         margin: 40px auto 30px auto;
+      }
+
+      .commentsbox {
+        width: 100%;
+        height: fit-content;
+        margin: 80px auto 80px auto;
+      }
+
+      .commentsbox > .row {
+        width: 1200px;
+        margin: 40px auto 20px auto;
+        padding-left: 50px;
+      }
+
+      .memberbox {
+        width: 100%;
+        height: fit-content;
       }
     </style>
     <script type="module">
@@ -284,12 +306,12 @@
         let id = doc.id;
 
         let temp_html = `
-                  <div class="col" id="card-${cardId}" value="${cardId}">
+                  <div class="col" value="${cardId}">
                       <div class="card h-100">
-                          <img src="${image}" onerror="this.src='background.PNG'">
-                          <div class="card_name">
-                              <h5 class="card_title">${title}</h5>
-                          </div>
+                        <img src="${image}" class="card-img-top" onerror="this.src='background.PNG'">
+                        <div class="card-body">
+                          <h5 class="card-title">${title}</h5>
+                        </div>
                       </div>
                   </div>`;
         $("#card").append(temp_html);
@@ -359,6 +381,17 @@
           $("#memberPage").fadeOut();
         }
       });
+
+      //방명록 등록 toggle 함수
+      function addcommentboxtoggle() {
+        if ($("#addcommentbox").css("display") == "none") {
+          $("#addcommentbox").show();
+          $("#addcommentbtn").text("방명록 등록 취소");
+        } else {
+          $("#addcommentbox").hide();
+          $("#addcommentbtn").text("방명록 등록");
+        }
+      }
     </script>
   </head>
 
@@ -382,26 +415,78 @@
       <h3>스파르타와 함께라면 이뤄낼 수 있습니다.</h3>
     </div>
 
-    <div class="memberlabel">
-      <label>멤버 소개</label>
-      <button type="button" class="savebtn" onclick="addMember()">
-        멤버 추가
-      </button>
-    </div>
-    <hr style="margin: 0px 50px 0px 50px" />
+    <div class="memberbox">
+      <div class="memberlabel">
+        <label>멤버 소개</label>
+        <button type="button" class="savebtn" onclick="addMember()">
+          멤버 추가
+        </button>
+      </div>
+      <hr style="margin: 0px 50px 0px 50px" />
 
-    <div class="mycards">
-      <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
+      <div class="mycards">
+        <div id="card" class="row row-cols-1 row-cols-md-4 g-4"></div>
+      </div>
     </div>
 
-    <div class="memberlabel">
-      <label>방명록</label>
-      <button type="button" class="savebtn" onclick="addMember()">
-        방명록 등록
-      </button>
+    <div class="commentsbox">
+      <div class="memberlabel">
+        <label>방명록</label>
+        <button
+          type="button"
+          class="savebtn"
+          id="addcommentbtn"
+          onclick="addcommentboxtoggle()"
+        >
+          방명록 등록
+        </button>
+      </div>
+      <hr style="margin: 0px 50px 0px 50px" />
+      <div
+        class="row row-cols-lg-auto g-3 align-items-center"
+        id="addcommentbox"
+        style="display: none"
+      >
+        <div class="col-sm-2">
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="commentname"
+              placeholder="이름"
+            />
+            <label for="commentname">이름</label>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="commentcontents"
+              placeholder="내용"
+            />
+            <label for="commentcontents">내용</label>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-floating">
+            <input
+              type="email"
+              class="form-control"
+              id="commentpw"
+              placeholder="비밀번호"
+            />
+            <label for="commentpw">비밀번호</label>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-outline-dark">등록하기</button>
+        </div>
+      </div>
+
+      <div class="commentslist"></div>
     </div>
-    <hr style="margin: 0px 50px 0px 50px" />
-    <div class="commentsbox"></div>
 
     <div id="memberPage" class="memberPage">
       <div class="outer">
@@ -466,46 +551,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="memberlabel">
-      <label>방명록</label>
-      <button type="button" class="saveguestbtn" onclick="$('#postingbox').toggle();">
-        방명록 추가
-      </button>
-    </div>
-    <hr style="margin: 0px 50px 0px 50px" />
-    <div class="mypostingbox" id="postingbox">
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="image"
-          placeholder="이름"
-        />
-        <label for="floatingInput">이름</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="title"
-          placeholder="내용"
-        />
-        <label for="floatingInput">내용</label>
-      </div>
-      <div class="form-floating mb-3">
-        <input
-          type="email"
-          class="form-control"
-          id="comment"
-          placeholder="날짜"
-        />
-        <label for="floatingInput">날짜</label>
-      </div>
-      <button id="postingbtn" type="button" class="btn btn-danger">
-        기록하기
-      </button>
     </div>
   </body>
 </html>
