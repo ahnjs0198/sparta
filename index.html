@@ -21,11 +21,20 @@
       footer {
         height: 100px;
         background-color: rgb(125, 7, 235);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
       }
 
       footer > a {
         height: 50px;
         margin-right: 120px;
+      }
+
+      footer > vv {
+        justify-content: center;
+        flex-direction: column;
       }
 
       header {
@@ -390,6 +399,20 @@
       }
       // 방명록 데이터 가져오기 실행
       getCommentsData();
+      $("#postingbtn").click(async function () {
+        let commentname = $("#commentname").val();
+        let commentcontents = $("#commentcontents").val();
+        let commentpw = $("#commentpw").val();
+
+        let doc = {
+          commentname: commentname,
+          commentcontents: commentcontents,
+          commentpw: commentpw,
+        };
+        await addDoc(collection(db, "comments"), doc);
+        alert("저장완료!");
+        window.location.reload();
+      });
 
       //멤버 카드 클릭시 실행 이벤트 - 멤버데이터 가져오고 페이지 오픈
       $(document).on("click", ".col", async function () {
@@ -717,11 +740,41 @@
     </div>
   </body>
   <footer>
-    <a href="https://velog.io/@skykid/posts">
-      <img
-        class="img-concert"
-        src="https://ahnjs0198.github.io/sparta/velog.png"
-      />
-    </a>
+    <div class="vv" style="margin: 10px">
+      <div style="text-align: center">김지윤 tstory</div>
+      <a href="https://jy3574.tistory.com/">
+        <img
+          class="img-concert"
+          src="https://ahnjs0198.github.io/sparta/tstory.png"
+        />
+      </a>
+    </div>
+    <div class="vv" style="margin: 10px">
+      <div style="text-align: center">안재솔 tstory</div>
+      <a href="https://play-everyday.tistory.com">
+        <img
+          class="img-concert"
+          src="https://ahnjs0198.github.io/sparta/tstory.png"
+        />
+      </a>
+    </div>
+    <div class="vv" style="margin: 10px">
+      <div style="text-align: center">박용재 velog</div>
+      <a href="https://velog.io/@skykid/posts">
+        <img
+          class="img-concert"
+          src="https://ahnjs0198.github.io/sparta/velog.png"
+        />
+      </a>
+    </div>
+    <div class="vv" style="margin: 10px">
+      <div style="text-align: center">김세원 velog</div>
+      <a href="https://velog.io/@taketheking/posts">
+        <img
+          class="img-concert"
+          src="https://ahnjs0198.github.io/sparta/velog.png"
+        />
+      </a>
+    </div>
   </footer>
 </html>
